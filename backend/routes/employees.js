@@ -66,12 +66,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
     }
 
-    const employee = user.employees.id(id);
-    if (!employee) {
-        return res.status(404).json({ error: 'Employee not found' });
-    }
-
-    employee.remove();
+    user.employees.pull({ _id: id });
     await user.save();
 
     const employees = user.employees.map(employee => ({
