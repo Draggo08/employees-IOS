@@ -21,6 +21,7 @@
 		8E00C9F42C05242000E5864C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F32C05242000E5864C /* LoginView.swift */; };
 		8E00C9F62C05243400E5864C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F52C05243400E5864C /* RegistrationView.swift */; };
 		8E00C9F82C0524D700E5864C /* EmployeeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F72C0524D700E5864C /* EmployeeListView.swift */; };
+		8E00C9FA2C053E4000E5864C /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F92C053E4000E5864C /* UserProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		8E00C9F32C05242000E5864C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8E00C9F52C05243400E5864C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		8E00C9F72C0524D700E5864C /* EmployeeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListView.swift; sourceTree = "<group>"; };
+		8E00C9F92C053E4000E5864C /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				8E00C9C42C0522EA00E5864C /* Assets.xcassets */,
 				8E00C9C62C0522EA00E5864C /* EmployeeManagement.entitlements */,
 				8E00C9C72C0522EA00E5864C /* Preview Content */,
+				8E00C9F92C053E4000E5864C /* UserProfileView.swift */,
 			);
 			path = EmployeeManagement;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				8E00C9F82C0524D700E5864C /* EmployeeListView.swift in Sources */,
 				8E00C9C32C0522E800E5864C /* ContentView.swift in Sources */,
 				8E00C9F22C05239600E5864C /* AuthViewModel.swift in Sources */,
+				8E00C9FA2C053E4000E5864C /* UserProfileView.swift in Sources */,
 				8E00C9EE2C05235300E5864C /* Employee.swift in Sources */,
 				8E00C9C12C0522E800E5864C /* EmployeeManagementApp.swift in Sources */,
 				8E00C9EC2C05233000E5864C /* user.swift in Sources */,

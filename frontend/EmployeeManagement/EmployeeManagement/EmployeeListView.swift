@@ -6,6 +6,13 @@ struct EmployeeListView: View {
     
     var body: some View {
         VStack {
+            NavigationLink(destination: UserProfileView(authViewModel: authViewModel)) {
+                Text("Профиль")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+            }
+            .padding()
+
             HStack {
                 Text("Logged in as \(authViewModel.currentUser?.login ?? "")")
                     .padding()

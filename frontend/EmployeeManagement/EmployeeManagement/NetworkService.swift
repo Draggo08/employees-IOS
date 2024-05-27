@@ -110,7 +110,7 @@ class NetworkService {
            }
        }.resume()
    }
-    
+
     func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
         guard let token = token else {
             completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
@@ -188,6 +188,43 @@ class NetworkService {
                 completion(.success(employees))
             } catch {
                 print("Decoding error: \(error)")
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+
+    func changePassword(newPassword: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let token = token else {
+            completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
+            return
+        }
+        
+        let url = baseURL.appendingPathComponent("/auth/change-password")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue(token, forHTTPHeaderField: "x-access-token")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let passwordDetails = ["password": newPassword]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: passwordDetails, options: [])
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
+                completion(.failure(error))
+                return
+            }
+            
+            if let responseString = String(data: data, encoding: .utf8) {
+                print("Received data: \(responseString)")
+                completion(.success(responseString))
+            } else {
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode response"]))
                 completion(.failure(error))
             }
         }.resume()

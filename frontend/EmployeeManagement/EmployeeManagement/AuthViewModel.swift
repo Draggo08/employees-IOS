@@ -79,4 +79,19 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+
+    // Метод для смены пароля
+    func changePassword(newPassword: String) {
+        // Реализация смены пароля
+        NetworkService.shared.changePassword(newPassword: newPassword) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let message):
+                    print("Пароль успешно изменен: \(message)")
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
 }
