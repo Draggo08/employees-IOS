@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const EmployeeSchema = new Schema({
     name: { type: String, required: true }
-});
+    // Добавьте поле идентификатора, если его нет
+}, { _id: true }); // _id автоматически добавляется MongoDB
 
 const UserSchema = new Schema({
     firstName: { type: String, required: true },

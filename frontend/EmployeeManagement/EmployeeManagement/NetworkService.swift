@@ -110,66 +110,80 @@ class NetworkService {
            }
        }.resume()
    }
-   
-   func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-       guard let token = token else { return }
-       
-       let url = baseURL.appendingPathComponent("/employee")
-       var request = URLRequest(url: url)
-       request.httpMethod = "POST"
-       request.setValue(token, forHTTPHeaderField: "x-access-token")
-       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-       
-       let employeeDetails = ["name": name]
-       request.httpBody = try? JSONSerialization.data(withJSONObject: employeeDetails, options: [])
-       
-       URLSession.shared.dataTask(with: request) { data, response, error in
-           if let error = error {
-               completion(.failure(error))
-               return
-           }
-           
-           guard let data = data else {
-               let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
-               completion(.failure(error))
-               return
-           }
-           
-           do {
-               let employees = try JSONDecoder().decode([Employee].self, from: data)
-               completion(.success(employees))
-           } catch {
-               completion(.failure(error))
-           }
-       }.resume()
-   }
-   
-   func deleteEmployee(id: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-       guard let token = token else { return }
-       
-       let url = baseURL.appendingPathComponent("/employee/\(id)")
-       var request = URLRequest(url: url)
-       request.httpMethod = "DELETE"
-       request.setValue(token, forHTTPHeaderField: "x-access-token")
-       
-       URLSession.shared.dataTask(with: request) { data, response, error in
-           if let error = error {
-               completion(.failure(error))
-               return
-           }
-           
-           guard let data = data else {
-               let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
-               completion(.failure(error))
-               return
-           }
-           
-           do {
-               let employees = try JSONDecoder().decode([Employee].self, from: data)
-               completion(.success(employees))
-           } catch {
-               completion(.failure(error))
-           }
-       }.resume()
-   }
+
+    func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
+        guard let token = token else { return }
+        
+        let url = baseURL.appendingPathComponent("/employees")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue(token, forHTTPHeaderField: "x-access-token")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let employeeDetails = ["name": name]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: employeeDetails, options: [])
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
+                print("No data returned")
+                completion(.failure(error))
+                return
+            }
+
+            // Логирование полученных данных
+            if let responseString = String(data: data, encoding: .utf8) {
+                print("Received data: \(responseString)")
+            }
+            
+            do {
+                let employees = try JSONDecoder().decode([Employee].self, from: data)
+                completion(.success(employees))
+            } catch {
+                print("Decoding error: \(error)")
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+
+    func deleteEmployee(id: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
+        guard let token = token else { return }
+        
+        let url = baseURL.appendingPathComponent("/employee/\(id)")
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue(token, forHTTPHeaderField: "x-access-token")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
+                completion(.failure(error))
+                return
+            }
+            
+            // Логирование полученных данных
+            if let responseString = String(data: data, encoding: .utf8) {
+                print("Received data: \(responseString)")
+            }
+            
+            do {
+                let employees = try JSONDecoder().decode([Employee].self, from: data)
+                completion(.success(employees))
+            } catch {
+                print("Decoding error: \(error)")
+                completion(.failure(error))
+            }
+        }.resume()
+    }
 }
