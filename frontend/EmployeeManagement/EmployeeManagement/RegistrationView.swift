@@ -12,30 +12,30 @@ struct RegistrationView: View {
             
             TextField("First Name", text: $authViewModel.firstName)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             TextField("Last Name", text: $authViewModel.lastName)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             TextField("Email", text: $authViewModel.email)
                 .autocapitalization(.none)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
-            TextField("Username", text: $authViewModel.username) // Используем переменную 'username'
+            TextField("Username", text: $authViewModel.username)
                 .autocapitalization(.none)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             SecureField("Password", text: $authViewModel.password)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             Button(action: {
                 authViewModel.register()
@@ -44,9 +44,9 @@ struct RegistrationView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 220, height: 60)
+                    .frame(maxWidth: .infinity)
                     .background(Color.green)
-                    .cornerRadius(15.0)
+                    .cornerRadius(10)
             }
             .padding(.top, 20)
             
@@ -57,6 +57,7 @@ struct RegistrationView: View {
             }
         }
         .padding()
+        .background(Color(UIColor.systemGray6))
         .navigationBarTitle("Register", displayMode: .inline)
     }
 }

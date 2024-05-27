@@ -13,24 +13,24 @@ struct LoginView: View {
             TextField("Email", text: $authViewModel.email)
                 .autocapitalization(.none)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             SecureField("Password", text: $authViewModel.password)
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                .shadow(radius: 5)
             
             Button(action: {
-                authViewModel.login() // Вызов метода 'login'
+                authViewModel.login()
             }) {
                 Text("Login")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .frame(width: 220, height: 60)
+                    .frame(maxWidth: .infinity)
                     .background(Color.blue)
-                    .cornerRadius(15.0)
+                    .cornerRadius(10)
             }
             .padding(.top, 20)
             
@@ -44,10 +44,15 @@ struct LoginView: View {
                 Text("Register")
                     .font(.headline)
                     .foregroundColor(.blue)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                    .shadow(radius: 5)
             }
             .padding()
         }
         .padding()
+        .background(Color(UIColor.systemGray6))
         .navigationBarTitle("Login", displayMode: .inline)
     }
 }

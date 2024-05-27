@@ -5,56 +5,74 @@ struct EmployeeListView: View {
     @State private var newEmployeeName = ""
     
     var body: some View {
-        VStack {
-            NavigationLink(destination: UserProfileView(authViewModel: authViewModel)) {
-                Text("Профиль")
-                    .font(.headline)
-                    .foregroundColor(.blue)
-            }
-            .padding()
-
-            HStack {
-                Text("Logged in as \(authViewModel.currentUser?.login ?? "")")
-                    .padding()
-                Spacer()
-            }
-            
-            TextField("New Employee Name", text: $newEmployeeName)
+        NavigationView {
+            VStack {
+                NavigationLink(destination: UserProfileView(authViewModel: authViewModel)) {
+                    Text("Профиль")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
-                .padding([.leading, .trailing], 20)
-            
-            Button(action: {
-                authViewModel.addEmployee(name: newEmployeeName)
-            }) {
-                Text("Add Employee")
-                    .font(.headline)
-                    .foregroundColor(.white)
+
+                HStack {
+                    Text("Logged in as \(authViewModel.currentUser?.login ?? "")")
+                        .padding()
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+                
+                TextField("New Employee Name", text: $newEmployeeName)
                     .padding()
-                    .frame(width: 220, height: 60)
-                    .background(Color.blue)
-                    .cornerRadius(15.0)
-            }
-            .padding()
-            
-            List {
-                ForEach(authViewModel.employees) { employee in
-                    HStack {
-                        Text(employee.name)
-                        Spacer()
-                        Button(action: {
-                            authViewModel.deleteEmployee(id: employee.id)
-                        }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .padding([.leading, .trailing], 20)
+                
+                Button(action: {
+                    authViewModel.addEmployee(name: newEmployeeName)
+                }) {
+                    Text("Add Employee")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                List {
+                    ForEach(authViewModel.employees) { employee in
+                        HStack {
+                            Text(employee.name)
+                                .font(.subheadline)
+                            Spacer()
+                            Button(action: {
+                                authViewModel.deleteEmployee(id: employee.id)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                                    .padding()
+                                    .background(Color(red: 1, green: 0.8, blue: 0.8))
+                                    .cornerRadius(8)
+                            }
                         }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                        .shadow(radius: 5)
                     }
                 }
             }
-        }
-        .onAppear {
-            authViewModel.fetchEmployees()
+            .padding()
+            .background(Color(UIColor.systemGray6))
+            .onAppear {
+                authViewModel.fetchEmployees()
+            }
+            .navigationBarTitle("Сотрудники", displayMode: .inline)
         }
     }
 }

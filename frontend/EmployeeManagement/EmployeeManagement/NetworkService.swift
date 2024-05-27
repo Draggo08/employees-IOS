@@ -109,7 +109,7 @@ class NetworkService {
                completion(.failure(error))
            }
        }.resume()
-   }
+    }
 
     func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
         guard let token = token else {
@@ -224,7 +224,7 @@ class NetworkService {
                 print("Received data: \(responseString)")
                 completion(.success(responseString))
             } else {
-                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode response"]))
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode response"])
                 completion(.failure(error))
             }
         }.resume()
