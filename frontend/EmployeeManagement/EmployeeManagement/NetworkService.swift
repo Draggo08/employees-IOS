@@ -4,7 +4,6 @@ class NetworkService {
     static let shared = NetworkService()
     
     private let baseURL = URL(string: "http://localhost:3000/api")!
-    private var token: String?
     
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         let url = baseURL.appendingPathComponent("/auth/login")
@@ -36,7 +35,7 @@ class NetworkService {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let token = json?["token"] as? String, let userJson = json?["user"] as? [String: Any], let userData = try? JSONSerialization.data(withJSONObject: userJson) {
-                    self.token = token
+                    UserDefaults.standard.set(token, forKey: "userToken") // Сохранение токена в UserDefaults
                     let user = try JSONDecoder().decode(User.self, from: userData)
                     completion(.success(user))
                 } else {
@@ -83,36 +82,36 @@ class NetworkService {
     }
     
     func fetchEmployees(completion: @escaping (Result<[Employee], Error>) -> Void) {
-       guard let token = token else { return }
+        guard let token = UserDefaults.standard.string(forKey: "userToken") else { return }
        
-       let url = baseURL.appendingPathComponent("/employees")
-       var request = URLRequest(url: url)
-       request.httpMethod = "GET"
-       request.setValue(token, forHTTPHeaderField: "x-access-token")
+        let url = baseURL.appendingPathComponent("/employees")
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(token, forHTTPHeaderField: "x-access-token")
        
-       URLSession.shared.dataTask(with: request) { data, response, error in
-           if let error = error {
-               completion(.failure(error))
-               return
-           }
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
            
-           guard let data = data else {
-               let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
-               completion(.failure(error))
-               return
-           }
+            guard let data = data else {
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
+                completion(.failure(error))
+                return
+            }
            
-           do {
-               let employees = try JSONDecoder().decode([Employee].self, from: data)
-               completion(.success(employees))
-           } catch {
-               completion(.failure(error))
-           }
-       }.resume()
+            do {
+                let employees = try JSONDecoder().decode([Employee].self, from: data)
+                completion(.success(employees))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
     }
 
     func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-        guard let token = token else {
+        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
             completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
             return
         }
@@ -155,7 +154,7 @@ class NetworkService {
     }
 
     func deleteEmployee(id: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-        guard let token = token else {
+        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
             completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
             return
         }
@@ -194,7 +193,7 @@ class NetworkService {
     }
 
     func changePassword(newPassword: String, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let token = token else {
+        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
             completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
             return
         }

@@ -11,6 +11,7 @@ class AuthViewModel: ObservableObject {
     @Published var isAuthenticated: Bool = false
     @Published var currentUser: User?
     @Published var employees: [Employee] = []
+    private var token: String? // Добавляем это свойство
     
     private var cancellables = Set<AnyCancellable>()
     
