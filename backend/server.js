@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 // Подключение к MongoDB
 mongoose.connect('mongodb://localhost:27017/employees', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Роуты будут определены позже
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// Импорт роутов
+const authRoutes = require('./routes/auth');
+
+app.use('/api/auth', authRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
