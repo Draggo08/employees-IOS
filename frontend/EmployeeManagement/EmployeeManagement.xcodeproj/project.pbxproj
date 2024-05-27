@@ -20,6 +20,7 @@
 		8E00C9F22C05239600E5864C /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F12C05239600E5864C /* AuthViewModel.swift */; };
 		8E00C9F42C05242000E5864C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F32C05242000E5864C /* LoginView.swift */; };
 		8E00C9F62C05243400E5864C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F52C05243400E5864C /* RegistrationView.swift */; };
+		8E00C9F82C0524D700E5864C /* EmployeeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E00C9F72C0524D700E5864C /* EmployeeListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		8E00C9F12C05239600E5864C /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8E00C9F32C05242000E5864C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8E00C9F52C05243400E5864C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		8E00C9F72C0524D700E5864C /* EmployeeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 		8E00C9B42C0522E800E5864C = {
 			isa = PBXGroup;
 			children = (
+				8E00C9F72C0524D700E5864C /* EmployeeListView.swift */,
 				8E00C9F52C05243400E5864C /* RegistrationView.swift */,
 				8E00C9F32C05242000E5864C /* LoginView.swift */,
 				8E00C9F12C05239600E5864C /* AuthViewModel.swift */,
@@ -279,6 +282,7 @@
 			files = (
 				8E00C9F02C05237000E5864C /* NetworkService.swift in Sources */,
 				8E00C9F42C05242000E5864C /* LoginView.swift in Sources */,
+				8E00C9F82C0524D700E5864C /* EmployeeListView.swift in Sources */,
 				8E00C9C32C0522E800E5864C /* ContentView.swift in Sources */,
 				8E00C9F22C05239600E5864C /* AuthViewModel.swift in Sources */,
 				8E00C9EE2C05235300E5864C /* Employee.swift in Sources */,
