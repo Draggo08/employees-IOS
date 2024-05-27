@@ -22,8 +22,11 @@ struct UserProfileView: View {
                             .font(.subheadline)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                     
                     HStack {
                         Text("Имя:")
@@ -33,8 +36,11 @@ struct UserProfileView: View {
                             .font(.subheadline)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                     
                     HStack {
                         Text("Фамилия:")
@@ -44,8 +50,11 @@ struct UserProfileView: View {
                             .font(.subheadline)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                     
                     HStack {
                         Text("Электронная почта:")
@@ -55,8 +64,11 @@ struct UserProfileView: View {
                             .font(.subheadline)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                     
                     HStack {
                         Text("Пароль:")
@@ -66,8 +78,11 @@ struct UserProfileView: View {
                             .font(.subheadline)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                 }
 
                 Button(action: {
@@ -104,8 +119,11 @@ struct UserProfileView: View {
                         .padding(.top, 10)
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                    .shadow(radius: 5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
                 }
                 
                 Spacer()
@@ -117,8 +135,11 @@ struct UserProfileView: View {
                 }
                 .padding(.top, 20)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                .shadow(radius: 5)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.white)
+                        .shadow(radius: 5)
+                )
             }
             .padding()
         }
