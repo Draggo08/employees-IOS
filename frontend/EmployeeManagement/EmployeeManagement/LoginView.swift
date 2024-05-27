@@ -1,32 +1,16 @@
 import SwiftUI
 
-struct RegistrationView: View {
-    @ObservedObject var authViewModel: AuthViewModel
+struct LoginView: View {
+    @ObservedObject var authViewModel = AuthViewModel()
     
     var body: some View {
         VStack {
-            Image(systemName: "person.crop.circle.badge.plus")
+            Image(systemName: "person.circle.fill")
                 .resizable()
                 .frame(width: 100, height: 100)
                 .padding(.bottom, 20)
             
-            TextField("First Name", text: $authViewModel.firstName)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
-            
-            TextField("Last Name", text: $authViewModel.lastName)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
-            
             TextField("Email", text: $authViewModel.email)
-                .autocapitalization(.none)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(5.0)
-            
-            TextField("Login", text: $authViewModel.login)
                 .autocapitalization(.none)
                 .padding()
                 .background(Color(.systemGray6))
@@ -38,14 +22,14 @@ struct RegistrationView: View {
                 .cornerRadius(5.0)
             
             Button(action: {
-                authViewModel.register()
+                authViewModel.login() // Вызов метода 'login'
             }) {
-                Text("Register")
+                Text("Login")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
                     .frame(width: 220, height: 60)
-                    .background(Color.green)
+                    .background(Color.blue)
                     .cornerRadius(15.0)
             }
             .padding(.top, 20)
@@ -55,8 +39,15 @@ struct RegistrationView: View {
                     .foregroundColor(.red)
                     .padding()
             }
+            
+            NavigationLink(destination: RegistrationView(authViewModel: authViewModel)) {
+                Text("Register")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+            }
+            .padding()
         }
         .padding()
-        .navigationBarTitle("Register", displayMode: .inline)
+        .navigationBarTitle("Login", displayMode: .inline)
     }
 }

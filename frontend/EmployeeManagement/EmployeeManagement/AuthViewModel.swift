@@ -6,7 +6,7 @@ class AuthViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var login: String = ""
+    @Published var username: String = "" // Переименуем 'login' в 'username'
     @Published var errorMessage: String? = nil
     @Published var isAuthenticated: Bool = false
     @Published var currentUser: User?
@@ -28,11 +28,11 @@ class AuthViewModel: ObservableObject {
     }
     
     func register() {
-        NetworkService.shared.register(firstName: firstName, lastName: lastName, email: email, login: login, password: password) { [weak self] result in
+        NetworkService.shared.register(firstName: firstName, lastName: lastName, email: email, login: username, password: password) { [weak self] result in // Здесь также должно быть 'username'
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self?.login()
+                    self?.login() // Вызов метода 'login'
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }

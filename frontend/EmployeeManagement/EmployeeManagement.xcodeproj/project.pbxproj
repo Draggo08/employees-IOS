@@ -89,13 +89,6 @@
 		8E00C9B42C0522E800E5864C = {
 			isa = PBXGroup;
 			children = (
-				8E00C9F72C0524D700E5864C /* EmployeeListView.swift */,
-				8E00C9F52C05243400E5864C /* RegistrationView.swift */,
-				8E00C9F32C05242000E5864C /* LoginView.swift */,
-				8E00C9F12C05239600E5864C /* AuthViewModel.swift */,
-				8E00C9ED2C05235300E5864C /* Employee.swift */,
-				8E00C9EF2C05237000E5864C /* NetworkService.swift */,
-				8E00C9EB2C05233000E5864C /* user.swift */,
 				8E00C9BF2C0522E800E5864C /* EmployeeManagement */,
 				8E00C9D12C0522EA00E5864C /* EmployeeManagementTests */,
 				8E00C9DB2C0522EA00E5864C /* EmployeeManagementUITests */,
@@ -116,6 +109,13 @@
 		8E00C9BF2C0522E800E5864C /* EmployeeManagement */ = {
 			isa = PBXGroup;
 			children = (
+				8E00C9EB2C05233000E5864C /* user.swift */,
+				8E00C9EF2C05237000E5864C /* NetworkService.swift */,
+				8E00C9F32C05242000E5864C /* LoginView.swift */,
+				8E00C9ED2C05235300E5864C /* Employee.swift */,
+				8E00C9F12C05239600E5864C /* AuthViewModel.swift */,
+				8E00C9F52C05243400E5864C /* RegistrationView.swift */,
+				8E00C9F72C0524D700E5864C /* EmployeeListView.swift */,
 				8E00C9C02C0522E800E5864C /* EmployeeManagementApp.swift */,
 				8E00C9C22C0522E800E5864C /* ContentView.swift */,
 				8E00C9C42C0522EA00E5864C /* Assets.xcassets */,
