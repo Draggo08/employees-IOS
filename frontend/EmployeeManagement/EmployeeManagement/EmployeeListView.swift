@@ -2,9 +2,8 @@ import SwiftUI
 
 struct EmployeeListView: View {
     @ObservedObject var authViewModel: AuthViewModel
-    @State private var employees: [Employee] = []
     @State private var newEmployeeName = ""
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -12,7 +11,7 @@ struct EmployeeListView: View {
                     .padding()
                 Spacer()
             }
-
+            
             TextField("New Employee Name", text: $newEmployeeName)
                 .padding()
                 .background(Color(.systemGray6))
@@ -20,7 +19,7 @@ struct EmployeeListView: View {
                 .padding([.leading, .trailing], 20)
             
             Button(action: {
-                addEmployee()
+                authViewModel.addEmployee(name: newEmployeeName)
             }) {
                 Text("Add Employee")
                     .font(.headline)
@@ -31,14 +30,14 @@ struct EmployeeListView: View {
                     .cornerRadius(15.0)
             }
             .padding()
-
+            
             List {
-                ForEach(employees) { employee in
+                ForEach(authViewModel.employees) { employee in
                     HStack {
                         Text(employee.name)
                         Spacer()
                         Button(action: {
-                            deleteEmployee(employee.id)
+                            authViewModel.deleteEmployee(id: employee.id)
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(.red)
@@ -48,53 +47,7 @@ struct EmployeeListView: View {
             }
         }
         .onAppear {
-            fetchEmployees()
+            authViewModel.fetchEmployees()
         }
-    }
-    
-    func fetchEmployees() {
-        NetworkService.shared.fetchEmployees { result in
-            switch result {
-            case .success(let employees):
-                DispatchQueue.main.async {
-                    self.employees = employees
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func addEmployee() {
-        NetworkService.shared.addEmployee(name: newEmployeeName) { result in
-            switch result {
-            case .success(let employees):
-                DispatchQueue.main.async {
-                    self.employees = employees
-                    newEmployeeName = ""
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func deleteEmployee(_ id: String) {
-        NetworkService.shared.deleteEmployee(id: id) { result in
-            switch result {
-            case .success(let employees):
-                DispatchQueue.main.async {
-                    self.employees = employees
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-}
-
-struct EmployeeListView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmployeeListView(authViewModel: AuthViewModel())
     }
 }

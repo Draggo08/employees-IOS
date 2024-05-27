@@ -110,9 +110,12 @@ class NetworkService {
            }
        }.resume()
    }
-
+    
     func addEmployee(name: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
+            return
+        }
         
         let url = baseURL.appendingPathComponent("/employees")
         var request = URLRequest(url: url)
@@ -131,13 +134,12 @@ class NetworkService {
             }
             
             guard let data = data else {
-                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
                 print("No data returned")
+                let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
                 completion(.failure(error))
                 return
             }
 
-            // Логирование полученных данных
             if let responseString = String(data: data, encoding: .utf8) {
                 print("Received data: \(responseString)")
             }
@@ -153,26 +155,30 @@ class NetworkService {
     }
 
     func deleteEmployee(id: String, completion: @escaping (Result<[Employee], Error>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            completion(.failure(NSError(domain: "AuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No token available"])))
+            return
+        }
         
-        let url = baseURL.appendingPathComponent("/employee/\(id)")
+        let url = baseURL.appendingPathComponent("/employees/\(id)")
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue(token, forHTTPHeaderField: "x-access-token")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
+                print("Error: \(error.localizedDescription)")
                 completion(.failure(error))
                 return
             }
             
             guard let data = data else {
+                print("No data returned")
                 let error = NSError(domain: "DataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"])
                 completion(.failure(error))
                 return
             }
             
-            // Логирование полученных данных
             if let responseString = String(data: data, encoding: .utf8) {
                 print("Received data: \(responseString)")
             }

@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+// Middleware для проверки JWT токена
 const verifyToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
     
@@ -20,6 +21,7 @@ const verifyToken = (req, res, next) => {
     });
 };
 
+// Получение сотрудников пользователя
 router.get('/', verifyToken, async (req, res) => {
     const user = await User.findById(req.userId);
     if (!user) {
@@ -34,6 +36,7 @@ router.get('/', verifyToken, async (req, res) => {
     res.json(employees);
 });
 
+// Добавление сотрудника
 router.post('/', verifyToken, async (req, res) => {
     const { name } = req.body;
     
@@ -54,6 +57,7 @@ router.post('/', verifyToken, async (req, res) => {
     res.json(employees);
 });
 
+// Удаление сотрудника
 router.delete('/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
 
@@ -62,7 +66,12 @@ router.delete('/:id', verifyToken, async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
     }
 
-    user.employees.id(id).remove();
+    const employee = user.employees.id(id);
+    if (!employee) {
+        return res.status(404).json({ error: 'Employee not found' });
+    }
+
+    employee.remove();
     await user.save();
 
     const employees = user.employees.map(employee => ({

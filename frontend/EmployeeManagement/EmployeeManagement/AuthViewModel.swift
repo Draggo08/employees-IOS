@@ -6,10 +6,11 @@ class AuthViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var username: String = "" // Переименуем 'login' в 'username'
+    @Published var username: String = "" // Переименованная переменная login
     @Published var errorMessage: String? = nil
     @Published var isAuthenticated: Bool = false
     @Published var currentUser: User?
+    @Published var employees: [Employee] = []
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -28,11 +29,50 @@ class AuthViewModel: ObservableObject {
     }
     
     func register() {
-        NetworkService.shared.register(firstName: firstName, lastName: lastName, email: email, login: username, password: password) { [weak self] result in // Здесь также должно быть 'username'
+        NetworkService.shared.register(firstName: firstName, lastName: lastName, email: email, login: username, password: password) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):
-                    self?.login() // Вызов метода 'login'
+                    self?.login()
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
+    func fetchEmployees() {
+        NetworkService.shared.fetchEmployees { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let employees):
+                    self?.employees = employees
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
+    func addEmployee(name: String) {
+        NetworkService.shared.addEmployee(name: name) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let employees):
+                    self?.employees = employees
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    func deleteEmployee(id: String) {
+        NetworkService.shared.deleteEmployee(id: id) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let employees):
+                    self?.employees = employees
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }

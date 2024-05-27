@@ -5,7 +5,7 @@ struct Employee: Identifiable, Codable {
     let name: String
 
     enum CodingKeys: String, CodingKey {
-        case id = "_id"
+        case id
         case name
     }
 }

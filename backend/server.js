@@ -7,8 +7,15 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-// Подключение к MongoDB
-mongoose.connect('mongodb://localhost:27017/employees', { useNewUrlParser: true, useUnifiedTopology: true });
+// Подключение к MongoDB, исправление устаревших опций
+mongoose.connect('mongodb://localhost:27017/employees', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('MongoDB connected');
+}).catch((error) => {
+    console.error('MongoDB connection error:', error);
+});
 
 // Импорт роутов
 const authRoutes = require('./routes/auth');
