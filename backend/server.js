@@ -12,8 +12,10 @@ mongoose.connect('mongodb://localhost:27017/employees', { useNewUrlParser: true,
 
 // Импорт роутов
 const authRoutes = require('./routes/auth');
+const employeeRoutes = require('./routes/employees');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/employees', employeeRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
