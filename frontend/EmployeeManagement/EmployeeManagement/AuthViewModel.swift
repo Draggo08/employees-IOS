@@ -80,9 +80,16 @@ class AuthViewModel: ObservableObject {
         }
     }
 
+    // Метод для выхода из профиля
+    func logout() {
+        // Очистка данных пользователя и токена
+        self.token = nil
+        self.currentUser = nil
+        self.isAuthenticated = false
+    }
+
     // Метод для смены пароля
     func changePassword(newPassword: String) {
-        // Реализация смены пароля
         NetworkService.shared.changePassword(newPassword: newPassword) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

@@ -6,7 +6,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             if authViewModel.isAuthenticated {
-                EmployeeListView(authViewModel: authViewModel)  // Создадим позже
+                EmployeeListView(authViewModel: authViewModel)
             } else {
                 LoginView(authViewModel: authViewModel)
             }
